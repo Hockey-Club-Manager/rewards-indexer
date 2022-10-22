@@ -1,4 +1,6 @@
 import {JSONValue, TypedMap, JSONValueKind, ValueKind, Value, log} from "@graphprotocol/graph-ts";
+import {User} from "../generated/schema";
+
 
 export function typedMapToString(typedMap: TypedMap<string, JSONValue>): string {
     let string = "{"
@@ -30,4 +32,36 @@ export function typedMapToString(typedMap: TypedMap<string, JSONValue>): string 
     }
     string += "}"
     return string
+}
+
+export function deleteObjFromArray<T>(array: T[], str: T): T[] {
+    const index = array.indexOf(str)
+    if (index > -1) {
+        array.splice(index, 1)
+    }
+    return array
+}
+
+export function addObjToArray<T>(array: T[] | null, obj: T): T[] {
+    if (array == null) {
+        array = new Array<T>()
+    }
+    array.push(obj)
+    return array
+}
+
+export function getOrCreateUser(accountId: string): User {
+    const user = User.load(accountId)
+    if (user == null) {
+        const newUser = new User(accountId)
+        newUser.points = 0
+        newUser.wins = 0
+        newUser.wins_in_line = 0
+        newUser.games = 0
+        newUser.players_sold = 0
+        newUser.referrals_count = 0
+        newUser.friends_count = 0
+        return newUser
+    }
+    return user as User
 }
