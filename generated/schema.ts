@@ -11,7 +11,7 @@ import {
   BigDecimal
 } from "@graphprotocol/graph-ts";
 
-export class ExampleEntity extends Entity {
+export class User extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
@@ -19,18 +19,18 @@ export class ExampleEntity extends Entity {
 
   save(): void {
     let id = this.get("id");
-    assert(id != null, "Cannot save ExampleEntity entity without an ID");
+    assert(id != null, "Cannot save User entity without an ID");
     if (id) {
       assert(
         id.kind == ValueKind.STRING,
-        `Entities of type ExampleEntity must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type User must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
       );
-      store.set("ExampleEntity", id.toString(), this);
+      store.set("User", id.toString(), this);
     }
   }
 
-  static load(id: string): ExampleEntity | null {
-    return changetype<ExampleEntity | null>(store.get("ExampleEntity", id));
+  static load(id: string): User | null {
+    return changetype<User | null>(store.get("User", id));
   }
 
   get id(): string {
@@ -42,21 +42,66 @@ export class ExampleEntity extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get block(): Bytes {
-    let value = this.get("block");
-    return value!.toBytes();
+  get points(): i32 {
+    let value = this.get("points");
+    return value!.toI32();
   }
 
-  set block(value: Bytes) {
-    this.set("block", Value.fromBytes(value));
+  set points(value: i32) {
+    this.set("points", Value.fromI32(value));
   }
 
-  get count(): BigInt {
-    let value = this.get("count");
-    return value!.toBigInt();
+  get wins(): i32 {
+    let value = this.get("wins");
+    return value!.toI32();
   }
 
-  set count(value: BigInt) {
-    this.set("count", Value.fromBigInt(value));
+  set wins(value: i32) {
+    this.set("wins", Value.fromI32(value));
+  }
+
+  get wins_in_line(): i32 {
+    let value = this.get("wins_in_line");
+    return value!.toI32();
+  }
+
+  set wins_in_line(value: i32) {
+    this.set("wins_in_line", Value.fromI32(value));
+  }
+
+  get games(): i32 {
+    let value = this.get("games");
+    return value!.toI32();
+  }
+
+  set games(value: i32) {
+    this.set("games", Value.fromI32(value));
+  }
+
+  get players_sold(): i32 {
+    let value = this.get("players_sold");
+    return value!.toI32();
+  }
+
+  set players_sold(value: i32) {
+    this.set("players_sold", Value.fromI32(value));
+  }
+
+  get referrals_count(): i32 {
+    let value = this.get("referrals_count");
+    return value!.toI32();
+  }
+
+  set referrals_count(value: i32) {
+    this.set("referrals_count", Value.fromI32(value));
+  }
+
+  get friends_count(): i32 {
+    let value = this.get("friends_count");
+    return value!.toI32();
+  }
+
+  set friends_count(value: i32) {
+    this.set("friends_count", Value.fromI32(value));
   }
 }

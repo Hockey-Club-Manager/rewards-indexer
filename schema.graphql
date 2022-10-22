@@ -1,5 +1,10 @@
-type ExampleEntity @entity {
+type User @entity {
   id: ID!
-  block: Bytes!
-  count: BigInt!
+  points: Int!
+  wins: Int!
+  wins_in_line: Int!
+  games: Int!
+  players_sold: Int!
+  referrals_count: Int!
+  friends_count: Int!
 }
