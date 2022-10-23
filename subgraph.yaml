@@ -16,17 +16,31 @@ dataSources:
       receiptHandlers:
         - handler: mapGameReceipt
       file: ./src/mapping.ts
-#  - kind: near
-#    name: marketplace-contract
-#    network: near-testnet
-#    source:
-#      account: market.parh.testnet
-#      startBlock: 95213252
-#    mapping:
-#      apiVersion: 0.0.6
-#      language: wasm/assemblyscript
-#      entities:
-#        - User
-#      receiptHandlers:
-#        - handler: mapMarketplaceReceipt
-#      file: ./src/mapping.ts
+  - kind: near
+    name: marketplace-contract
+    network: near-testnet
+    source:
+      account: market.parh.testnet
+      startBlock: 95213252
+    mapping:
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - User
+      receiptHandlers:
+        - handler: mapMarketplaceReceipt
+      file: ./src/mapping.ts
+  - kind: near
+    name: nft-contract
+    network: near-testnet
+    source:
+      account: hcm.parh.testnet
+      startBlock: 98292444
+    mapping:
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - User
+      receiptHandlers:
+        - handler: mapMarketplaceReceipt
+      file: ./src/mapping.ts

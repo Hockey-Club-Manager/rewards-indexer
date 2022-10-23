@@ -1,5 +1,6 @@
 import {near, BigInt, log, TypedMap, JSONValue, json, JSONValueKind} from "@graphprotocol/graph-ts"
 import {handleOnGetTeam, handleGenerateEvent} from "./gameContractHandlers";
+import { handleNFTBuyPack, handleResolvePurchase } from "./marketplaceContractHandlers";
 
 
 export function mapGameReceipt(
@@ -29,6 +30,11 @@ export function mapMarketplaceReceipt(
             continue
         }
         const functionCall = actions[i].toFunctionCall();
-        log.info("handleReceipt: Invalid method name: {}", [functionCall.methodName])
+        if (functionCall.methodName == "nft_buy_pack")
+            handleNFTBuyPack(actions[i], receiptWithOutcome)
+        if (functionCall.methodName == "resolve_purchase")
+            handleResolvePurchase(actions[i], receiptWithOutcome)
+        else
+            log.info("handleReceipt: Invalid method name: {}", [functionCall.methodName])
     }
 }

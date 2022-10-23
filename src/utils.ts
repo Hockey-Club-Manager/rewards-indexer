@@ -1,4 +1,4 @@
-import {JSONValue, TypedMap, JSONValueKind, ValueKind, Value, log} from "@graphprotocol/graph-ts";
+import {JSONValue, TypedMap, JSONValueKind, ValueKind, Value, log, near} from "@graphprotocol/graph-ts";
 import {User} from "../generated/schema";
 
 
@@ -64,4 +64,19 @@ export function getOrCreateUser(accountId: string): User {
         return newUser
     }
     return user as User
+}
+
+export function validateActionFunctionCall(action: near.ActionValue, callingMethodName: string, contractMethod: string): boolean {
+    if (action.kind != near.ActionKind.FUNCTION_CALL) {
+        log.error(`${callingMethodName}: action is not a function call`, []);
+        return false;
+    }
+
+    const methodName = action.toFunctionCall().methodName
+
+    if (!(methodName == contractMethod)) {
+        log.error("handleNFTBuyPack: Invalid method name: {}", [methodName]);
+        return false
+    }
+    return true
 }

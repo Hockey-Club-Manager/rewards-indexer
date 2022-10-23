@@ -1,25 +1,15 @@
 import {json, JSONValue, JSONValueKind, log, near, TypedMap} from "@graphprotocol/graph-ts";
 import {TAKING_PART_IN_GAME_POINTS, WINNING_GAME_POINTS} from "./constants";
 import {getOrCreateUser} from "./utils";
+import {validateActionFunctionCall} from "./utils";
 
 export function handleOnGetTeam (
     action: near.ActionValue,
     receiptWithOutcome: near.ReceiptWithOutcome
 ): void {
     // preparing and validating
-    if (action.kind != near.ActionKind.FUNCTION_CALL) {
-        log.error("handleOnGetTeam: action is not a function call", []);
-        return;
-    }
-    const functionCall = action.toFunctionCall();
-    const methodName = functionCall.methodName
-
-    if (!(methodName == "on_get_team")) {
-        log.error("handleOnGetTeam: Invalid method name: {}", [methodName]);
-        return
-    }
+    validateActionFunctionCall(action, "handleOnGetTeam", "on_get_team")
     // main logic
-
     let returnedValue: TypedMap<string, JSONValue>;
     if (receiptWithOutcome.outcome.status.kind == near.SuccessStatusKind.VALUE) {
         const returnBytes = receiptWithOutcome.outcome.status.toValue().toString()
@@ -47,18 +37,7 @@ export function handleGenerateEvent(
     receiptWithOutcome: near.ReceiptWithOutcome
 ): void {
     // preparing and validating
-    if (action.kind != near.ActionKind.FUNCTION_CALL) {
-        log.error("handleGenerateEvent: action is not a function call", []);
-        return;
-    }
-    const functionCall = action.toFunctionCall();
-    const methodName = functionCall.methodName
-
-    if (!(methodName == "generate_event")) {
-        log.error("handleGenerateEvent: Invalid method name: {}", [methodName]);
-        return
-    }
-
+    validateActionFunctionCall(action, "handleGenerateEvent", "generate_event")
     // main logic
 
     let returnedValuesArray: Array<JSONValue>;
