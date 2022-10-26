@@ -104,4 +104,13 @@ export class User extends Entity {
   set friends_count(value: i32) {
     this.set("friends_count", Value.fromI32(value));
   }
+
+  get already_set_team(): boolean {
+    let value = this.get("already_set_team");
+    return value!.toBoolean();
+  }
+
+  set already_set_team(value: boolean) {
+    this.set("already_set_team", Value.fromBoolean(value));
+  }
 }

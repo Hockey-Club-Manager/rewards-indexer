@@ -61,6 +61,7 @@ export function getOrCreateUser(accountId: string): User {
         newUser.players_sold = 0
         newUser.referrals_count = 0
         newUser.friends_count = 0
+        newUser.already_set_team = false
         return newUser
     }
     return user as User

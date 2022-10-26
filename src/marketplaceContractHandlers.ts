@@ -1,6 +1,6 @@
 import { json, JSONValue, log, near, TypedMap } from "@graphprotocol/graph-ts";
 import { getOrCreateUser } from "./utils";
-import { NFT_BUY_PACK_POINTS, NFT_BUY_POINTS, NFT_SELL_POINTS } from "./constants";
+import { NFT_BUY_PACK_POINTS, NFT_BUY_POINTS, NFT_SELL_POINTS, SET_TEAM_POINTS } from "./constants";
 import { validateActionFunctionCall } from "./utils";
 
 export function handleNFTBuyPack (
@@ -51,10 +51,27 @@ export function handleResolvePurchase (
         return
     }
 
-    const owner = getOrCreateUser(ownerId)
-    const buyer = getOrCreateUser(buyerId)
+    const owner = getOrCreateUser(ownerId!)
+    const buyer = getOrCreateUser(buyerId!)
     owner.points += NFT_SELL_POINTS
     buyer.points += NFT_BUY_POINTS
     owner.save()
     buyer.save()
+}
+
+export function handleManageTeam (
+    action: near.ActionValue,
+    receiptWithOutcome: near.ReceiptWithOutcome
+): void {
+    // preparing and validating
+    validateActionFunctionCall(action, "handleManageTeam", "manage_team")
+
+    // main logic
+
+    const user = getOrCreateUser(receiptWithOutcome.receipt.signerId)
+    if (!user.already_set_team) {
+        user.points += SET_TEAM_POINTS
+        user.already_set_team = true
+        user.save()
+    }
 }

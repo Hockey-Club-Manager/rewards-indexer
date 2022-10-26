@@ -1,6 +1,6 @@
-import {near, BigInt, log, TypedMap, JSONValue, json, JSONValueKind} from "@graphprotocol/graph-ts"
-import {handleOnGetTeam, handleGenerateEvent} from "./gameContractHandlers";
-import { handleNFTBuyPack, handleResolvePurchase } from "./marketplaceContractHandlers";
+import { near, log } from "@graphprotocol/graph-ts"
+import { handleOnGetTeam, handleGenerateEvent } from "./gameContractHandlers";
+import { handleNFTBuyPack, handleResolvePurchase, handleManageTeam } from "./marketplaceContractHandlers";
 
 
 export function mapGameReceipt(
@@ -34,6 +34,8 @@ export function mapMarketplaceReceipt(
             handleNFTBuyPack(actions[i], receiptWithOutcome)
         if (functionCall.methodName == "resolve_purchase")
             handleResolvePurchase(actions[i], receiptWithOutcome)
+        if (functionCall.methodName == "manage_team")
+            handleManageTeam(actions[i], receiptWithOutcome)
         else
             log.info("handleReceipt: Invalid method name: {}", [functionCall.methodName])
     }

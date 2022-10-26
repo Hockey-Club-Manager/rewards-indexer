@@ -7,4 +7,5 @@ type User @entity {
   players_sold: Int!
   referrals_count: Int!
   friends_count: Int!
+  already_set_team: Boolean!
 }
