@@ -69,6 +69,15 @@ export class User extends Entity {
     this.set("wins_in_line", Value.fromI32(value));
   }
 
+  get max_wins_in_line(): i32 {
+    let value = this.get("max_wins_in_line");
+    return value!.toI32();
+  }
+
+  set max_wins_in_line(value: i32) {
+    this.set("max_wins_in_line", Value.fromI32(value));
+  }
+
   get games(): i32 {
     let value = this.get("games");
     return value!.toI32();

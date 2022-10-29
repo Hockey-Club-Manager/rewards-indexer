@@ -75,6 +75,9 @@ export function handleGenerateEvent(
             const winner = getOrCreateUser(winnerId)
             winner.wins += 1
             winner.wins_in_line += 1
+            if (winner.wins_in_line > winner.max_wins_in_line) {
+                winner.max_wins_in_line = winner.wins_in_line
+            }
             winner.points += WINNING_GAME_POINTS
             winner.save()
 

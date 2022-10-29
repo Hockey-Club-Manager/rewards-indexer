@@ -56,6 +56,7 @@ export function getOrCreateUser(accountId: string): User {
         const newUser = new User(accountId)
         newUser.points = 0
         newUser.wins = 0
+        newUser.max_wins_in_line = 0
         newUser.wins_in_line = 0
         newUser.games = 0
         newUser.players_sold = 0
