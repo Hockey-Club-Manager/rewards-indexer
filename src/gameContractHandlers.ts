@@ -90,3 +90,20 @@ export function handleGenerateEvent(
         }
     }
 }
+
+export function handleAcceptFriendRequest(
+    action: near.ActionValue,
+    receiptWithOutcome: near.ReceiptWithOutcome
+): void {
+    validateActionFunctionCall(action, "handleAcceptFriendRequest", "accept_friend_request")
+    const functionCall = action.toFunctionCall()
+    const args = json.fromString(functionCall.args.toString()).toObject()
+    const friendId = args.get("friend_id")!.toString()
+    const account = receiptWithOutcome.receipt.signerId
+    const friend = getOrCreateUser(friendId)
+    const user = getOrCreateUser(account)
+    friend.friends_count += 1
+    user.friends_count += 1
+    friend.save()
+    user.save()
+}

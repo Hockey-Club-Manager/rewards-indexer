@@ -1,5 +1,5 @@
 import { near, log } from "@graphprotocol/graph-ts"
-import { handleOnGetTeam, handleGenerateEvent } from "./gameContractHandlers";
+import { handleOnGetTeam, handleGenerateEvent, handleAcceptFriendRequest } from "./gameContractHandlers";
 import { handleNFTBuyPack, handleResolvePurchase, handleManageTeam } from "./marketplaceContractHandlers";
 
 
@@ -16,6 +16,8 @@ export function mapGameReceipt(
             handleOnGetTeam(actions[i], receiptWithOutcome)
         if (functionCall.methodName == "generate_event")
             handleGenerateEvent(actions[i], receiptWithOutcome)
+        if (functionCall.methodName == "accept_friend_request")
+            handleAcceptFriendRequest(actions[i], receiptWithOutcome)
         else
             log.info("handleReceipt: Invalid method name: {}", [functionCall.methodName])
     }

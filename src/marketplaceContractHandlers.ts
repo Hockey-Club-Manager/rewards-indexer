@@ -55,6 +55,7 @@ export function handleResolvePurchase (
     const buyer = getOrCreateUser(buyerId!)
     owner.points += NFT_SELL_POINTS
     buyer.points += NFT_BUY_POINTS
+    owner.players_sold += 1;
     owner.save()
     buyer.save()
 }
