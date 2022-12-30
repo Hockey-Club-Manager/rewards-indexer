@@ -20,8 +20,8 @@ dataSources:
     name: marketplace-contract
     network: near-testnet
     source:
-      account: market.parh.testnet
-      startBlock: 95213252
+      account: market_nft.parh.testnet
+      startBlock: 110869484
     mapping:
       apiVersion: 0.0.6
       language: wasm/assemblyscript
@@ -34,8 +34,8 @@ dataSources:
     name: nft-contract
     network: near-testnet
     source:
-      account: hcm.parh.testnet
-      startBlock: 98292444
+      account: nft_nft.parh.testnet
+      startBlock: 110867984
     mapping:
       apiVersion: 0.0.6
       language: wasm/assemblyscript
